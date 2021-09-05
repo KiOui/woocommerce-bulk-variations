@@ -1,0 +1,22 @@
+{
+    "name": "widgets/widgets-collection",
+    "type": "plugin",
+    "description": "Widgets Collection is a collection of widgets for Wordpress.",
+    "authors": [
+        {
+            "name": "Lars van Rhijn",
+            "email": "lars@larsvanrhijn.nl"
+        }
+    ],
+    "funding": [
+        {
+            "url": "https://github.com/KiOui",
+            "type": "github"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "friendsofphp/php-cs-fixer": "^3.0"
+    },
+    "license": "MIT"
+}

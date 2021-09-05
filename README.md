@@ -1,2 +1,3 @@
-# woocommerce-bulk-variations
-A WooCommerce utility to let customers add multiple product vatiations at once to cart
+# WooCommerce Bulk Variations
+
+A WooCommerce utility to let customers add multiple product variations at once to cart.
