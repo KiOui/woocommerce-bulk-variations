@@ -11,6 +11,10 @@ if (!class_exists("WBVBulkForm")) {
 
         }
 
+		function add_scripts_and_styles() {
+			wp_enqueue_script( 'woocommerce-bulk-variations', WBV_PLUGIN_URI . 'assets/js/bulk-variations.js', array( 'jquery' ) );
+		}
+
         public function has_bulk_form(): bool {
             global $post;
 
@@ -33,6 +37,7 @@ if (!class_exists("WBVBulkForm")) {
 
         public function render_bulk_form() {
             if ($this->has_bulk_form()) {
+				$this->add_scripts_and_styles();
                 wc_get_template( 'variable-grid.php', array(), WC_TEMPLATE_PATH . '/single-product/', WBV_ABSPATH . 'templates/single-product/' );
             }
         }
