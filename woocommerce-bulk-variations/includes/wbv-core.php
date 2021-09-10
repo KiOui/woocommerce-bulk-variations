@@ -184,7 +184,7 @@ if (!class_exists("WBVCore")) {
             $product_id = $_POST['product_id'];
             $product = wc_get_product($product_id);
 
-			$something_added = false;
+            $something_added = false;
 
             if ($product) {
                 foreach ($items as $item) {
@@ -196,7 +196,7 @@ if (!class_exists("WBVCore")) {
                             if (apply_filters('woocommerce_add_to_cart_validation', true, $product_id, $amount, $variation_id)) {
                                 try {
                                     WC()->cart->add_to_cart($product->get_id(), $amount, $product_variation->get_id());
-									$something_added = true;
+                                    $something_added = true;
                                 } catch (Exception $e) {
                                     wc_add_notice(sprintf(__("Failed to add %s to cart.", 'woocommerce-bulk-variations'), $product_variation->get_name()));
                                 }
@@ -204,19 +204,19 @@ if (!class_exists("WBVCore")) {
                         }
                     }
                 }
-				if (!$something_added) {
-					wc_add_notice(__("Nothing was added to cart because no quantities were entered.", "woocommerce-bulk-variations"), 'error');
-				}
+                if (!$something_added) {
+                    wc_add_notice(__("Nothing was added to cart because no quantities were entered.", "woocommerce-bulk-variations"), 'error');
+                }
 
-				// Redirect if necessary
-	            $url = apply_filters( 'woocommerce_add_to_cart_redirect', false );
-	            if ( $url ) {
-		            wp_safe_redirect( $url );
-		            exit;
-	            } elseif ( get_option( 'woocommerce_cart_redirect_after_add' ) === 'yes' ) {
-		            wp_safe_redirect( wc_get_cart_url() );
-		            exit;
-	            }
+                // Redirect if necessary
+                $url = apply_filters('woocommerce_add_to_cart_redirect', false);
+                if ($url) {
+                    wp_safe_redirect($url);
+                    exit;
+                } elseif (get_option('woocommerce_cart_redirect_after_add') === 'yes') {
+                    wp_safe_redirect(wc_get_cart_url());
+                    exit;
+                }
             }
         }
     }
