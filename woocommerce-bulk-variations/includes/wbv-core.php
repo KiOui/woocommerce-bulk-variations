@@ -132,19 +132,22 @@ if (!class_exists("WBVCore")) {
             add_action('init', array( $this, 'init' ));
             if (is_admin()) {
                 add_action('wbv_init', array($this, 'add_meta_box_support'));
-            }
-            else {
+            } else {
                 include_once WBV_ABSPATH . 'includes/wbv-bulk-form.php';
                 $bulk_form_class = new WBVBulkForm();
                 $bulk_form_class->actions_and_filters();
 
-	            if ( isset( $_POST['add-variations-to-cart'] ) && $_POST['add-variations-to-cart'] ) {
-		            add_action( 'wp_loaded', array( $this, 'process_matrix_submission' ), 99 );
-	            }
+                if (isset($_POST['add-variations-to-cart']) && $_POST['add-variations-to-cart']) {
+                    add_action('wp_loaded', array( $this, 'process_matrix_submission' ), 99);
+                }
             }
         }
 
-        public function add_meta_box_support() {
+        /**
+         * Add Bulk Form meta boxes to products.
+         */
+        public function add_meta_box_support()
+        {
             include_once WBV_ABSPATH . '/includes/wbv-metaboxes.php';
             new WBVMetabox('wbv_metabox', array(
                 array(
@@ -172,8 +175,33 @@ if (!class_exists("WBVCore")) {
             ), 'product', __('Bulk variation form Settings', 'woocommerce-bulk-variations'), 'side');
         }
 
-		public function process_matrix_submission() {
+        /**
+         * Process matrix submission and add products to cart.
+         */
+        public function process_matrix_submission()
+        {
+            $items = $_POST['order_info'];
+            $product_id = $_POST['product_id'];
+            $product = wc_get_product($product_id);
 
-		}
+            if ($product) {
+                foreach ($items as $item) {
+                    $amount = absint($item['quantity']) ?: 0;
+                    if ($amount != 0) {
+                        $variation_id = empty($item['variation_id']) ? '' : absint($item['variation_id']);
+                        if (!empty($variation_id)) {
+                            $product_variation = wc_get_product($variation_id);
+                            if (apply_filters('woocommerce_add_to_cart_validation', true, $product_id, $amount, $variation_id)) {
+                                try {
+                                    WC()->cart->add_to_cart($product->get_id(), $amount, $product_variation->get_id());
+                                } catch (Exception $e) {
+                                    wc_add_notice(sprintf(__("Failed to add %s to cart.", 'woocommerce-bulk-variations'), $product_variation->get_name()));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -145,8 +145,7 @@ if (!class_exists("WBVMetabox")) {
             case 'select':
                 if (function_exists($field['options'])) {
                     $field['options'] = $field['options']($post);
-                }
-                                        ?>
+                } ?>
                                             <select name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>">
                                                 <?php foreach ($field['options'] as $option) : ?>
                                                     <option <?php if ($meta == $option['value']) :
