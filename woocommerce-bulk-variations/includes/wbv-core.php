@@ -131,6 +131,7 @@ if (!class_exists("WBVCore")) {
             add_action('after_setup_theme', array( $this, 'pluggable' ));
             add_action('init', array( $this, 'init' ));
             if (is_admin()) {
+                add_action('admin_notices', array($this, 'render_notice'), 99);
                 add_action('wbv_init', array($this, 'add_meta_box_support'));
             } else {
                 include_once WBV_ABSPATH . 'includes/wbv-bulk-form.php';
@@ -140,6 +141,34 @@ if (!class_exists("WBVCore")) {
                 if (isset($_POST['add-variations-to-cart']) && $_POST['add-variations-to-cart']) {
                     add_action('wp_loaded', array( $this, 'process_matrix_submission' ), 99);
                 }
+            }
+        }
+
+        /**
+         * Check if the admin notice should be rendered.
+         *
+         * @param WP_Post $post the post to check
+         *
+         * @return bool whether to render the admin notice
+         */
+        private function should_render_notice(WP_Post $post): bool
+        {
+            return wbv_is_variable_product($post) && wbv_bulk_form_enabled($post) && !wbv_row_column_set($post);
+        }
+
+        /**
+         * Render an admin notice when necessary.
+         */
+        public function render_notice()
+        {
+            global $post;
+            echo $this->should_render_notice($post);
+            if ($this->should_render_notice($post)) {
+                ?>
+			    <div class="error notice">
+				    <p><?php echo __('This product has a configuration error in the WooCommerce Bulk Variation Form settings. The WooCommerce Bulk Variation Form will not get rendered on the product page.', 'woocommerce-bulk-variations'); ?></p>
+			    </div>
+			    <?php
             }
         }
 
@@ -176,6 +205,20 @@ if (!class_exists("WBVCore")) {
         }
 
         /**
+         * Output success message.
+         */
+        public function render_add_to_cart_notice($count)
+        {
+            if (get_option('woocommerce_cart_redirect_after_add') == 'yes') {
+                $return_to = (wp_get_referer()) ? wp_get_referer() : home_url();
+                $message   = sprintf('<a href="%s" class="button">%s</a> %s', $return_to, __('Continue Shopping &rarr;', 'wc_bulk_variations'), sprintf(__('%s products successfully added to your cart.', 'woocommerce_bulk_variations'), $count));
+            } else {
+                $message = sprintf('<a href="%s" class="button">%s</a> %s', get_permalink(wc_get_page_id('cart')), __('View Cart &rarr;', 'woocommerce'), sprintf(__('%s products successfully added to your cart.', 'woocommerce_bulk_variations'), $count));
+            }
+            wc_add_notice(apply_filters('woocommerce_bv_add_to_cart_message', $message));
+        }
+
+        /**
          * Process matrix submission and add products to cart.
          */
         public function process_matrix_submission()
@@ -184,7 +227,7 @@ if (!class_exists("WBVCore")) {
             $product_id = $_POST['product_id'];
             $product = wc_get_product($product_id);
 
-            $something_added = false;
+            $amount_added = 0;
 
             if ($product) {
                 foreach ($items as $item) {
@@ -196,7 +239,7 @@ if (!class_exists("WBVCore")) {
                             if (apply_filters('woocommerce_add_to_cart_validation', true, $product_id, $amount, $variation_id)) {
                                 try {
                                     WC()->cart->add_to_cart($product->get_id(), $amount, $product_variation->get_id());
-                                    $something_added = true;
+                                    $amount_added = $amount_added + $amount;
                                 } catch (Exception $e) {
                                     wc_add_notice(sprintf(__("Failed to add %s to cart.", 'woocommerce-bulk-variations'), $product_variation->get_name()));
                                 }
@@ -204,8 +247,10 @@ if (!class_exists("WBVCore")) {
                         }
                     }
                 }
-                if (!$something_added) {
+                if ($amount_added == 0) {
                     wc_add_notice(__("Nothing was added to cart because no quantities were entered.", "woocommerce-bulk-variations"), 'error');
+                } else {
+                    $this->render_add_to_cart_notice($amount_added);
                 }
 
                 // Redirect if necessary
