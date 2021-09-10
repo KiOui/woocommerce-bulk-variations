@@ -31,7 +31,7 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
     function wbv_admin_notice_woocommerce_inactive()
     {
         if (is_admin() && current_user_can('edit_plugins')) {
-            echo '<div class="notice notice-error"><p>Woocommerce Bulk Variations requires WooCommerce to be active. Please activate WooCommerce to use WooCommerce Bulk Variations.</p></div>';
+            echo '<div class="notice notice-error"><p>' . __('Woocommerce Bulk Variations requires WooCommerce to be active. Please activate WooCommerce to use WooCommerce Bulk Variations.') . '</p></div>';
         }
     }
     add_action('admin_notices', 'wbv_admin_notice_woocommerce_inactive');

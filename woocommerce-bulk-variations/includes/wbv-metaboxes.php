@@ -23,10 +23,10 @@ if (!class_exists("WBVMetabox")) {
         /**
          * WBVMetabox constructor.
          *
-         * @param string $post_type : the post type to add this custom meta box to.
-         * @param array $meta_fields: array of (label: Label of meta box, desc: Description of meta box, id: ID of meta box
-         * (used in database), type: Type of meta box (for input field)).
-         * @param string $meta_box_name: meta box name
+         * @param string $post_type the post type to add this custom meta box to.
+         * @param array $meta_fields array of (label: Label of meta box, desc: Description of meta box, id: ID of meta box
+         * (used in database), type: Type of meta box (for input field).
+         * @param string $meta_box_name meta box name
          */
         public function __construct(string $meta_box_name, array $meta_fields, string $post_type, string $meta_box_title, string $context = 'advanced')
         {
@@ -169,8 +169,8 @@ if (!class_exists("WBVMetabox")) {
 
         /**
          * Saves custom meta tag data
-         * @param int $post_id : the post id to save the data for
-         * @return int: post_id
+         * @param int $post_id the post id to save the data for
+         * @return int post_id
          */
         public function save_meta_box(int $post_id): int
         {

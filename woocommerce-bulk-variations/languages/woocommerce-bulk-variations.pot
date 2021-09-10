@@ -1,0 +1,96 @@
+# Copyright (C) 2021 Lars van Rhijn
+# This file is distributed under the same license as the WooCommerce Bulk Variations plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Bulk Variations 0.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-bulk-variations\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-09-10T18:26:19+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.5.0\n"
+"X-Domain: woocommerce-bulk-variations\n"
+
+#. Plugin Name of the plugin
+msgid "WooCommerce Bulk Variations"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://github.com/KiOui/woocommerce-bulk-variations"
+msgstr ""
+
+#. Description of the plugin
+msgid "A WooCommerce utility to let customers add multiple product variations at once to cart."
+msgstr ""
+
+#. Author of the plugin
+msgid "Lars van Rhijn"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://larsvanrhijn.nl/"
+msgstr ""
+
+#: includes/wbv-bulk-form.php:36
+msgid "Bulk Order Form"
+msgstr ""
+
+#: includes/wbv-core.php:169
+msgid "This product has a configuration error in the WooCommerce Bulk Variation Form settings. The WooCommerce Bulk Variation Form will not get rendered on the product page."
+msgstr ""
+
+#: includes/wbv-core.php:183
+msgid "Bulk variation form"
+msgstr ""
+
+#: includes/wbv-core.php:188
+msgid "Singular variation form"
+msgstr ""
+
+#: includes/wbv-core.php:193
+msgid "Bulk variation form column"
+msgstr ""
+
+#: includes/wbv-core.php:199
+msgid "Bulk variation form row"
+msgstr ""
+
+#: includes/wbv-core.php:204
+msgid "Bulk variation form Settings"
+msgstr ""
+
+#: includes/wbv-core.php:214
+msgid "Continue Shopping &rarr;"
+msgstr ""
+
+#: includes/wbv-core.php:214
+#: includes/wbv-core.php:216
+msgid "%s products successfully added to your cart."
+msgstr ""
+
+#: includes/wbv-core.php:216
+msgid "View Cart &rarr;"
+msgstr ""
+
+#: includes/wbv-core.php:244
+msgid "Failed to add %s to cart."
+msgstr ""
+
+#: includes/wbv-core.php:251
+msgid "Nothing was added to cart because no quantities were entered."
+msgstr ""
+
+#: includes/wbv-functions.php:52
+msgid "Select Attribute"
+msgstr ""
+
+#: templates/single-product/variable-grid.php:95
+msgid "&larr; Product Page"
+msgstr ""
+
+#: templates/single-product/variable-grid.php:96
+msgid "Add to cart"
+msgstr ""

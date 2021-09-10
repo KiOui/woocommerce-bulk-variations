@@ -1,0 +1,110 @@
+# Copyright (C) 2021 Lars van Rhijn
+# This file is distributed under the same license as the WooCommerce Bulk Variations plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Bulk Variations 0.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-bulk-"
+"variations\n"
+"POT-Creation-Date: 2021-09-10T18:26:19+00:00\n"
+"PO-Revision-Date: 2021-09-10 20:27+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"X-Domain: woocommerce-bulk-variations\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Plugin Name of the plugin
+msgid "WooCommerce Bulk Variations"
+msgstr "WooCommerce Bulk Variations"
+
+#. Plugin URI of the plugin
+msgid "https://github.com/KiOui/woocommerce-bulk-variations"
+msgstr "https://github.com/KiOui/woocommerce-bulk-variations"
+
+#. Description of the plugin
+msgid ""
+"A WooCommerce utility to let customers add multiple product variations at "
+"once to cart."
+msgstr ""
+"Een WooCommerce extensie om klanten meerdere productvariaties in een keer te "
+"laten toevoegen aan de winkelwagen."
+
+#. Author of the plugin
+msgid "Lars van Rhijn"
+msgstr "Lars van Rhijn"
+
+#. Author URI of the plugin
+msgid "https://larsvanrhijn.nl/"
+msgstr "https://larsvanrhijn.nl/"
+
+#: includes/wbv-bulk-form.php:36
+msgid "Bulk Order Form"
+msgstr "Bulk Bestel Formulier"
+
+#: includes/wbv-core.php:169
+msgid ""
+"This product has a configuration error in the WooCommerce Bulk Variation "
+"Form settings. The WooCommerce Bulk Variation Form will not get rendered on "
+"the product page."
+msgstr ""
+"Dit product heeft een configuratie fout in de WooCommerce Bulk Variation "
+"Formulier instellingen. Het WooCommerce Bulk Variation Formulier zal niet "
+"worden weergeven op de productpagina."
+
+#: includes/wbv-core.php:183
+msgid "Bulk variation form"
+msgstr "Bulk variation formulier"
+
+#: includes/wbv-core.php:188
+msgid "Singular variation form"
+msgstr "Singular variation formulier"
+
+#: includes/wbv-core.php:193
+msgid "Bulk variation form column"
+msgstr "Bulk variation formulier kolom"
+
+#: includes/wbv-core.php:199
+msgid "Bulk variation form row"
+msgstr "Bulk variation formulier rij"
+
+#: includes/wbv-core.php:204
+msgid "Bulk variation form Settings"
+msgstr "Bulk variation formulier Instellingen"
+
+#: includes/wbv-core.php:214
+msgid "Continue Shopping &rarr;"
+msgstr "Verder Winkelen &rarr;"
+
+#: includes/wbv-core.php:214 includes/wbv-core.php:216
+msgid "%s products successfully added to your cart."
+msgstr "%s producten aan winkelwagen toegevoegd."
+
+#: includes/wbv-core.php:216
+msgid "View Cart &rarr;"
+msgstr "Winkelwagen &rarr;"
+
+#: includes/wbv-core.php:244
+msgid "Failed to add %s to cart."
+msgstr "Toevoegen van %s aan de winkelwagen is mislukt."
+
+#: includes/wbv-core.php:251
+msgid "Nothing was added to cart because no quantities were entered."
+msgstr ""
+"Er is niets toegevoegd aan de winkelwagen omdat er geen aantallen zijn "
+"opgegeven."
+
+#: includes/wbv-functions.php:52
+msgid "Select Attribute"
+msgstr "Selecteer eigenschap"
+
+#: templates/single-product/variable-grid.php:95
+msgid "&larr; Product Page"
+msgstr "&larr; Product Pagina"
+
+#: templates/single-product/variable-grid.php:96
+msgid "Add to cart"
+msgstr "Toevoegen aan winkelwagen"

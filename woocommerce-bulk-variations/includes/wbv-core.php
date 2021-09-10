@@ -211,9 +211,9 @@ if (!class_exists("WBVCore")) {
         {
             if (get_option('woocommerce_cart_redirect_after_add') == 'yes') {
                 $return_to = (wp_get_referer()) ? wp_get_referer() : home_url();
-                $message   = sprintf('<a href="%s" class="button">%s</a> %s', $return_to, __('Continue Shopping &rarr;', 'wc_bulk_variations'), sprintf(__('%s products successfully added to your cart.', 'woocommerce_bulk_variations'), $count));
+                $message   = sprintf('<a href="%s" class="button">%s</a> %s', $return_to, __('Continue Shopping &rarr;', 'woocommerce-bulk-variations'), sprintf(__('%s products successfully added to your cart.', 'woocommerce-bulk-variations'), $count));
             } else {
-                $message = sprintf('<a href="%s" class="button">%s</a> %s', get_permalink(wc_get_page_id('cart')), __('View Cart &rarr;', 'woocommerce'), sprintf(__('%s products successfully added to your cart.', 'woocommerce_bulk_variations'), $count));
+                $message = sprintf('<a href="%s" class="button">%s</a> %s', get_permalink(wc_get_page_id('cart')), __('View Cart &rarr;', 'woocommerce-bulk-variations'), sprintf(__('%s products successfully added to your cart.', 'woocommerce-bulk-variations'), $count));
             }
             wc_add_notice(apply_filters('woocommerce_bv_add_to_cart_message', $message));
         }
@@ -238,8 +238,9 @@ if (!class_exists("WBVCore")) {
                             $product_variation = wc_get_product($variation_id);
                             if (apply_filters('woocommerce_add_to_cart_validation', true, $product_id, $amount, $variation_id)) {
                                 try {
-                                    WC()->cart->add_to_cart($product->get_id(), $amount, $product_variation->get_id());
-                                    $amount_added = $amount_added + $amount;
+                                    if (WC()->cart->add_to_cart($product->get_id(), $amount, $product_variation->get_id())) {
+                                        $amount_added = $amount_added + $amount;
+                                    }
                                 } catch (Exception $e) {
                                     wc_add_notice(sprintf(__("Failed to add %s to cart.", 'woocommerce-bulk-variations'), $product_variation->get_name()));
                                 }
