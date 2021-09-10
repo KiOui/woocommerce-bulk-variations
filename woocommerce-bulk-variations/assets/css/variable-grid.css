@@ -17,3 +17,12 @@
     flex-grow: 1;
     padding: 10px;
 }
+
+#matrix_form tfoot .single_add_to_cart_button {
+    float: right;
+}
+
+#matrix_form tfoot td {
+    padding-left: 0;
+    padding-right: 0;
+}

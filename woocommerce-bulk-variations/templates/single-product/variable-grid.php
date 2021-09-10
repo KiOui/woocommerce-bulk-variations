@@ -92,6 +92,7 @@ do_action('wbv_before_add_to_cart_form');
             <tfoot>
                 <tr>
                     <td colspan="<?php echo $wbv_matrix->get_column_length() + 1; ?>">
+                        <input class="button btn-back-to-product" type="button" value="<?php echo __('&larr; Product Page', 'woocommerce-bulk-variations'); ?>" />
                         <button type="submit" class="single_add_to_cart_button button alt"><?php echo apply_filters('single_add_to_cart_text', __('Add to cart', 'woocommerce-bulk-variations'), 'variable'); ?></button>
                     </td>
                 </tr>
@@ -102,6 +103,4 @@ do_action('wbv_before_add_to_cart_form');
             <input type="hidden" name="product_id" value="<?php echo esc_attr($post->ID); ?>" />
         </div>
 	</form>
-
-    <input class="button btn-back-to-product" type="button" value="<?php echo __('&larr; Product Page', 'woocommerce-bulk-variations'); ?>" />
 </div>
