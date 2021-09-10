@@ -14,13 +14,13 @@ do_action('wbv_before_add_to_cart_form');
 
 ?>
 
-<div id="matrix_form">
+<div id="matrix_form" style="display: none">
 	<div class="summary">
 		<?php woocommerce_template_single_title(); ?>
 		<?php woocommerce_template_single_price(); ?>
 		<?php woocommerce_template_single_excerpt(); ?>
 	</div>
-	<form id="wholesale_form" class="bulk_varations_form cart matrix" method="POST" enctype="multipart/form-data">
+	<form id="wholesale_form" class="bulk_variations_form cart matrix" method="POST" enctype="multipart/form-data">
 		<table id="matrix_form_table">
 			<thead>
 				<tr>
@@ -35,8 +35,8 @@ do_action('wbv_before_add_to_cart_form');
 
                     <!-- Info boxes -->
                     <?php for ($column_index = 0; $column_index < $wbv_matrix->get_column_length(); $column_index++): ?>
-                        <tr style="display: none;" class="info_box" id=<?php echo "qty_input_" . ($row_index + $column_index) . "_info"; ?>>
-                            <td colspan="<?php echo $wbv_matrix->get_column_length(); ?>">
+                        <tr style="display: none;" class="info_box" id=<?php echo "qty_input_" . ($row_index*$wbv_matrix->get_column_length() + $column_index) . "_info"; ?>>
+                            <td colspan="<?php echo ($wbv_matrix->get_column_length() + 1); ?>">
                                 <?php $variation = $wbv_matrix->get_matrix_index($row_index, $column_index) ?>
                                 <?php if ($variation != null): ?>
                                     <div class="qty_input_info" >
@@ -55,9 +55,7 @@ do_action('wbv_before_add_to_cart_form');
                                                 <?php endif; ?>
 
                                             </ul>
-
-
-                                            <?php echo $variation->get_availability()['availability'] ? $variation->get_availability()['availability'] : '<p class="stock">&nbsp;</p>'; ?>
+                                            <?php echo $variation->get_availability()['availability'] ? wc_get_stock_html($variation) : '<p class="stock">&nbsp;</p>'; ?>
                                         </div>
                                     </div>
                                 <?php endif; ?>
@@ -77,16 +75,16 @@ do_action('wbv_before_add_to_cart_form');
                                             data-column="<?php echo $column_index; ?>"
                                             class="number qty_input"
                                             type="number"
-                                            id="qty_input_<?php echo ($row_index + $column_index); ?>"
-                                            name="order_info[<?php echo ($row_index + $column_index); ?>][quantity]"
+                                            id="qty_input_<?php echo ($row_index*$wbv_matrix->get_column_length() + $column_index); ?>"
+                                            name="order_info[<?php echo ($row_index*$wbv_matrix->get_column_length() + $column_index); ?>][quantity]"
                                             min="0"
                                             <?php if ($variation->get_manage_stock() && !$variation->backorders_allowed()): ?>
                                                 max="<?php echo $variation->get_stock_quantity(); ?>"
                                             <?php endif; ?>
                                         />
-                                    <input type="hidden" name="order_info[<?php echo $current_cell_index; ?>][variation_id]" value="<?php echo $field_data['variation_id']; ?>" />
-                                    <input type="hidden" name="order_info[<?php echo $current_cell_index; ?>][variation_data][attribute_<?php echo $column_attribute; ?>]" value="<?php echo $key; ?>" />
-                                    <input type="hidden" name="order_info[<?php echo $current_cell_index; ?>][variation_data][attribute_<?php echo $row_attribute; ?>]" value="<?php echo $row; ?>" />
+                                    <input type="hidden" name="order_info[<?php echo ($row_index*$wbv_matrix->get_column_length() + $column_index); ?>][variation_id]" value="<?php echo $field_data['variation_id']; ?>" />
+                                    <input type="hidden" name="order_info[<?php echo ($row_index*$wbv_matrix->get_column_length() + $column_index); ?>][variation_data][attribute_<?php echo $column_attribute; ?>]" value="<?php echo $key; ?>" />
+                                    <input type="hidden" name="order_info[<?php echo ($row_index*$wbv_matrix->get_column_length() + $column_index); ?>][variation_data][attribute_<?php echo $row_attribute; ?>]" value="<?php echo $row; ?>" />
                                 <?php endif; ?>
                             </td>
                         <?php endfor; ?>
@@ -107,9 +105,5 @@ do_action('wbv_before_add_to_cart_form');
         </div>
 	</form>
 
-	<?php if (!wbv_single_product_form_enabled($post)): ?>
-        <input class="button btn-back-to-single" type="button" value="<?php __( '&larr; Singular Order Form', 'woocommerce-bulk-variations' ); ?>" />
-	<?php else : ?>
-        <input class="button btn-back-to-product" type="button" value="<?php __( '&larr Product Page', 'woocommerce-bulk-variations' ); ?>" />
-	<?php endif; ?>
+    <input class="button btn-back-to-product" type="button" value="<?php echo __( '&larr; Product Page', 'woocommerce-bulk-variations' ); ?>" />
 </div>

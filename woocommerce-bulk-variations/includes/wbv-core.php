@@ -136,7 +136,11 @@ if (!class_exists("WBVCore")) {
             else {
                 include_once WBV_ABSPATH . 'includes/wbv-bulk-form.php';
                 $bulk_form_class = new WBVBulkForm();
-                add_action('woocommerce_before_single_product', array($bulk_form_class, 'render_bulk_form'), 99);
+                $bulk_form_class->actions_and_filters();
+
+	            if ( isset( $_POST['add-variations-to-cart'] ) && $_POST['add-variations-to-cart'] ) {
+		            add_action( 'wp_loaded', array( $this, 'process_matrix_submission' ), 99 );
+	            }
             }
         }
 
@@ -167,5 +171,9 @@ if (!class_exists("WBVCore")) {
                 ),
             ), 'product', __('Bulk variation form Settings', 'woocommerce-bulk-variations'), 'side');
         }
+
+		public function process_matrix_submission() {
+
+		}
     }
 }
