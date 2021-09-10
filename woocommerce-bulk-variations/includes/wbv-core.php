@@ -162,8 +162,7 @@ if (!class_exists("WBVCore")) {
         public function render_notice()
         {
             global $post;
-            echo $this->should_render_notice($post);
-            if ($this->should_render_notice($post)) {
+            if ($post != null && $this->should_render_notice($post)) {
                 ?>
 			    <div class="error notice">
 				    <p><?php echo __('This product has a configuration error in the WooCommerce Bulk Variation Form settings. The WooCommerce Bulk Variation Form will not get rendered on the product page.', 'woocommerce-bulk-variations'); ?></p>
