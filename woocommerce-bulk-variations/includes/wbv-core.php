@@ -139,7 +139,7 @@ if (!class_exists("WBVCore")) {
                 $bulk_form_class->actions_and_filters();
                 $GLOBALS['WBVBulkForm'] = $bulk_form_class;
 
-                if (isset($_POST['add-variations-to-cart']) && $_POST['add-variations-to-cart']) {
+                if (isset($_POST['woocommerce-bulk-variations-submission']) && $_POST['woocommerce-bulk-variations-submission']) {
                     add_action('wp_loaded', array( $this, 'process_matrix_submission' ), 99);
                 }
             }

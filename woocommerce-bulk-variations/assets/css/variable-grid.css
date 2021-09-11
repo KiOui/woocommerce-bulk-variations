@@ -1,19 +1,19 @@
-.qty_input_info {
+.matrix_form_input_info {
     display: flex;
     flex-direction: row;
 }
-.qty_input_info .images img {
+.matrix_form_input_info .images img {
     height: auto;
     width: auto;
     max-height: 200px;
 }
 
-.qty_input_info .images {
+.matrix_form_input_info .images {
     flex-grow: 0;
     padding: 10px;
 }
 
-.qty_input_info .summary {
+.matrix_form_input_info .summary {
     flex-grow: 1;
     padding: 10px;
 }

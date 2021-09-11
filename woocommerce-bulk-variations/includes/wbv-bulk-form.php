@@ -33,7 +33,7 @@ if (!class_exists("WBVBulkForm")) {
             global $post;
             if (wbv_has_bulk_variation_form($post)) {
                 ?>
-                <input class="button btn-bulk" type="button" value="<?php echo __('Bulk Order Form', 'woocommerce-bulk-variations'); ?>"  />
+                <input class="button btn_bulk" type="button" value="<?php echo __('Bulk Order Form', 'woocommerce-bulk-variations'); ?>"  />
                 <?php
             }
         }
