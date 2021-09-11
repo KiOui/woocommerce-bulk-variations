@@ -17,7 +17,7 @@ if (!class_exists("WBVCore")) {
          *
          * @var string
          */
-        public string $version = '0.0.2';
+        public string $version = '0.0.3';
 
         /**
          * The single instance of the class
