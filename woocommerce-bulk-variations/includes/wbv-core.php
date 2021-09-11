@@ -17,7 +17,7 @@ if (!class_exists("WBVCore")) {
          *
          * @var string
          */
-        public string $version = '0.0.1';
+        public string $version = '0.0.2';
 
         /**
          * The single instance of the class
@@ -137,6 +137,7 @@ if (!class_exists("WBVCore")) {
                 include_once WBV_ABSPATH . 'includes/wbv-bulk-form.php';
                 $bulk_form_class = new WBVBulkForm();
                 $bulk_form_class->actions_and_filters();
+                $GLOBALS['WBVBulkForm'] = $bulk_form_class;
 
                 if (isset($_POST['add-variations-to-cart']) && $_POST['add-variations-to-cart']) {
                     add_action('wp_loaded', array( $this, 'process_matrix_submission' ), 99);

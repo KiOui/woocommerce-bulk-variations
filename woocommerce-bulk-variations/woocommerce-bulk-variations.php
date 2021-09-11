@@ -4,7 +4,7 @@
 Plugin Name: WooCommerce Bulk Variations
 Description: A WooCommerce utility to let customers add multiple product variations at once to cart.
 Plugin URI: https://github.com/KiOui/woocommerce-bulk-variations
-Version: 0.0.1
+Version: 0.0.2
 Author: Lars van Rhijn
 Author URI: https://larsvanrhijn.nl/
 Text Domain: woocommerce-bulk-variations
@@ -26,7 +26,7 @@ include_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
 if (is_plugin_active('woocommerce/woocommerce.php')) {
     include_once dirname(__FILE__) . '/includes/wbv-core.php';
-    WBVCore::instance();
+    $GLOBALS["WBVCore"] = WBVCore::instance();
 } else {
     function wbv_admin_notice_woocommerce_inactive()
     {
