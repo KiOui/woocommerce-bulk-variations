@@ -31,4 +31,4 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Code style with PHP-CS-Fixer
-        run: ./vendor/bin/php-cs-fixer fix --format=checkstyle | cs2pr
+        run: ./vendor/squizlabs/php_codesniffer/bin/phpcs -q --report=xml | cs2pr
