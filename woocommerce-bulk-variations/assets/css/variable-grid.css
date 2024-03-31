@@ -1,3 +1,19 @@
+#wholesale_form {
+    position: relative;
+    display: block;
+}
+
+#matrix_form_table {
+    max-width: 100%;
+    width: 100%;
+    overflow-x: scroll;
+}
+
+#matrix_form_table tbody tr td .wbv-input-container input {
+    position: relative;
+    width: 100px;
+}
+
 .matrix_form_input_info {
     display: flex;
     flex-direction: row;
@@ -18,11 +34,11 @@
     padding: 10px;
 }
 
-#matrix_form tfoot .single_add_to_cart_button {
-    float: right;
-}
-
 #matrix_form tfoot td {
     padding-left: 0;
     padding-right: 0;
+}
+
+.matrix_form_input {
+    max-width: 100%;
 }
