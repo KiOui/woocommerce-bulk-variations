@@ -170,7 +170,7 @@ if ( ! class_exists( 'WbvCore' ) ) {
 		 * Add Bulk Form meta boxes to products.
 		 */
 		public function add_meta_box_support() {
-			include_once WBV_ABSPATH . '/includes/metaboxes/metaboxes.php';
+			include_once WBV_ABSPATH . 'includes/metaboxes/Metabox.php';
 			new Metabox(
 				'wbv_metabox',
 				array(

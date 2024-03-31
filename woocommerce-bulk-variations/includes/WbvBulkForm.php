@@ -24,7 +24,7 @@ if ( ! class_exists( 'WbvBulkForm' ) ) {
 		 * Enqueue scripts and styles.
 		 */
 		public function add_scripts_and_styles() {
-			wp_enqueue_script( 'woocommerce-bulk-variations', WBV_PLUGIN_URI . 'assets/js/bulk-variations.js', array( 'jquery' ) );
+			wp_enqueue_script( 'woocommerce-bulk-variations', WBV_PLUGIN_URI . 'assets/js/bulk-variations.js', array( 'jquery' ), null, true );
 			wp_enqueue_style( 'woocommerce-bulk-variations', WBV_PLUGIN_URI . 'assets/css/variable-grid.css' );
 		}
 
@@ -42,8 +42,21 @@ if ( ! class_exists( 'WbvBulkForm' ) ) {
 		 */
 		public function before_add_to_cart_form() {
 			?>
-			<input class="button btn_bulk" type="button" value="<?php echo esc_attr( __( 'Bulk Order Form', 'woocommerce-bulk-variations' ) ); ?>"  />
+			<input id="wbv-bulk-button" class="button btn_bulk" type="button" value="<?php echo esc_attr( __( 'Bulk Order Form', 'woocommerce-bulk-variations' ) ); ?>"  />
 			<?php
+		}
+
+		/**
+		 * Show an error message that the Bulk for is misconfigured and therefor not shown.
+		 *
+		 * @param string $error The error message to show.
+		 * @return void
+		 */
+		public function show_error_message_form_misconfigured( string $error ) {
+			global $post;
+			if ( current_user_can( 'edit_post', $post ) ) {
+				echo '<div class="notice notice-error" style="color: red"><p>' . esc_html( $error ) . '</p></div>';
+			}
 		}
 
 		/**
@@ -58,12 +71,35 @@ if ( ! class_exists( 'WbvBulkForm' ) ) {
 				$column_attribute = get_post_meta( $product->get_id(), 'wbv_bulk_form_column', true );
 
 				if ( ! $row_attribute ) {
-					// TODO: Show error message.
+					add_action(
+						'woocommerce_product_meta_start',
+						function () {
+							$error = __( 'WooCommerce Bulk Variations is enabled for this product but no (valid) row attribute is set. Please review the configuration in the product settings.', 'woocommerce-bulk-variations' );
+							$this->show_error_message_form_misconfigured( $error );
+						}
+					);
 					return;
 				}
 
 				if ( ! $column_attribute ) {
-					// TODO: Show error message.
+					add_action(
+						'woocommerce_product_meta_start',
+						function () {
+							$error = __( 'WooCommerce Bulk Variations is enabled for this product but no (valid) column attribute is set. Please review the configuration in the product settings.', 'woocommerce-bulk-variations' );
+							$this->show_error_message_form_misconfigured( $error );
+						}
+					);
+					return;
+				}
+
+				if ( $row_attribute === $column_attribute ) {
+					add_action(
+						'woocommerce_product_meta_start',
+						function () {
+							$error = __( 'WooCommerce Bulk Variations is enabled for this product but the set column and row attribute is the same. Please review the configuration in the product settings.', 'woocommerce-bulk-variations' );
+							$this->show_error_message_form_misconfigured( $error );
+						}
+					);
 					return;
 				}
 
@@ -71,11 +107,15 @@ if ( ! class_exists( 'WbvBulkForm' ) ) {
 					// We have checked the product type above so this is safe.
 					$GLOBALS['WbvBulkMatrix'] = new WbvMatrix( $product, $row_attribute, $column_attribute );
 				} catch ( WbvMatrixException $e ) {
-					// TODO: handle exception.
+					add_action(
+						'woocommerce_product_meta_start',
+						function () use ( $e ) {
+							$error = sprintf( __( 'WooCommerce Bulk Variations is enabled for this product but it failed to generate a matrix: %s', 'woocommerce-bulk-variations' ), e );
+							$this->show_error_message_form_misconfigured( $error );
+						}
+					);
 					return;
 				}
-
-				$this->add_scripts_and_styles();
 
 				if ( ! wbv_single_product_form_enabled( $post ) ) {
 					remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
@@ -83,6 +123,8 @@ if ( ! class_exists( 'WbvBulkForm' ) ) {
 
 				add_action( 'woocommerce_product_meta_start', array( $this, 'before_add_to_cart_form' ) );
 				wc_get_template( 'variable-grid.php', array(), WC_TEMPLATE_PATH . '/single-product/', WBV_ABSPATH . 'templates/single-product/' );
+
+				$this->add_scripts_and_styles();
 			}
 		}
 	}

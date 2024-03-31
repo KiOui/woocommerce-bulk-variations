@@ -77,22 +77,24 @@ do_action( 'wbv_before_add_to_cart_form' );
 						<td class="row-label"><?php echo esc_html( ucwords( $wbv_matrix->get_row_key( $row_index ) ) ); ?></td>
 						<?php for ( $column_index = 0; $column_index < $wbv_matrix->get_column_length(); $column_index++ ) : ?>
 							<td>
-								<?php $variation = $wbv_matrix->get_matrix_index( $row_index, $column_index ); ?>
-								<?php if ( ! is_null( $variation ) && ( false === $variation->get_manage_stock() || $variation->get_stock_quantity() > 0 || $variation->backorders_allowed() ) ) : ?>
-									<input
-											data-row="<?php echo esc_attr( $row_index ); ?>"
-											data-column="<?php echo esc_attr( $column_index ); ?>"
-											class="number matrix_form_input"
-											type="number"
-											id="matrix_form_input_<?php echo esc_attr( $row_index * $wbv_matrix->get_column_length() + $column_index ); ?>"
-											name="order_info[<?php echo esc_attr( $row_index * $wbv_matrix->get_column_length() + $column_index ); ?>][quantity]"
-											min="0"
-											<?php if ( true === $variation->get_manage_stock() && ! $variation->backorders_allowed() ) : ?>
-												max="<?php echo esc_attr( $variation->get_stock_quantity() ); ?>"
-											<?php endif; ?>
-										/>
-									<input type="hidden" name="order_info[<?php echo esc_attr( $row_index * $wbv_matrix->get_column_length() + $column_index ); ?>][variation_id]" value="<?php echo esc_attr( $variation->get_id() ); ?>" />
-								<?php endif; ?>
+								<div class="wbv-input-container">
+									<?php $variation = $wbv_matrix->get_matrix_index( $row_index, $column_index ); ?>
+									<?php if ( ! is_null( $variation ) && ( false === $variation->get_manage_stock() || $variation->get_stock_quantity() > 0 || $variation->backorders_allowed() ) ) : ?>
+										<input
+												data-row="<?php echo esc_attr( $row_index ); ?>"
+												data-column="<?php echo esc_attr( $column_index ); ?>"
+												class="number matrix_form_input"
+												type="number"
+												id="matrix_form_input_<?php echo esc_attr( $row_index * $wbv_matrix->get_column_length() + $column_index ); ?>"
+												name="order_info[<?php echo esc_attr( $row_index * $wbv_matrix->get_column_length() + $column_index ); ?>][quantity]"
+												min="0"
+												<?php if ( true === $variation->get_manage_stock() && ! $variation->backorders_allowed() ) : ?>
+													max="<?php echo esc_attr( $variation->get_stock_quantity() ); ?>"
+												<?php endif; ?>
+											/>
+										<input type="hidden" name="order_info[<?php echo esc_attr( $row_index * $wbv_matrix->get_column_length() + $column_index ); ?>][variation_id]" value="<?php echo esc_attr( $variation->get_id() ); ?>" />
+									<?php endif; ?>
+								</div>
 							</td>
 						<?php endfor; ?>
 					</tr>

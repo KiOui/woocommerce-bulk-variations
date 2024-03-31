@@ -147,7 +147,7 @@ if ( ! function_exists( 'wbv_has_bulk_variation_form' ) ) {
 	 * @return bool True if the product form is enabled, false otherwise.
 	 */
 	function wbv_has_bulk_variation_form( WP_Post $post ): bool {
-		return wbv_is_variable_product( $post ) && wbv_bulk_form_enabled( $post ) && wbv_row_column_set( $post );
+		return wbv_is_variable_product( $post ) && wbv_bulk_form_enabled( $post );
 	}
 }
 
@@ -158,7 +158,7 @@ if ( ! function_exists( 'wbv_get_matrix' ) ) {
 	 * @return WbvMatrix|null The global registered matrix.
 	 */
 	function wbv_get_matrix() {
-		if ( ! isset( $GLOBALS['WbvBulkMatrix'] ) || 'WbvMatrix' !== gettype( $GLOBALS['WbvBulkMatrix'] ) ) {
+		if ( ! isset( $GLOBALS['WbvBulkMatrix'] ) || 'object' !== gettype( $GLOBALS['WbvBulkMatrix'] ) || 'WbvMatrix' !== get_class( $GLOBALS['WbvBulkMatrix'] ) ) {
 			return null;
 		}
 		return $GLOBALS['WbvBulkMatrix'];

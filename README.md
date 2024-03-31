@@ -1,5 +1,14 @@
 # WooCommerce Bulk Variations
 
+Thank you for downloading WooCommerce Bulk Variations. This plugin allows your customers to add multiple variations of
+one product to their cart in one go. This is especially useful for sites that frequently use bulk orders such as B2B
+clothing stores.
+
+WooCommerce Bulk Variations adds a settings menu to your products that can be used to generate an order table. The
+order table is customizable and an example is shown in the image below.
+
+
+
 A WooCommerce utility to let customers add multiple product variations at once to 
 cart. This might be useful for wholesale stores that are selling products to
 customers where customers should be able to add a lot of products to the cart in
